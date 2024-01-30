@@ -15,7 +15,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror 
 MLX_FLAGS = -framework OpenGL -framework AppKit
 
-SRC = main.c utils.c
+SRC = main.c utils.c init.c
 OBJ = $(SRC:.c=.o) 
 
 SRC_MLX = ./mlx/libmlx.a
