@@ -50,7 +50,7 @@
 # define LAVA_RED        0xFF330
 
 # define MOVE 0.1
-# define ZOOM 1.3
+# define ZOOM 0.7
 # define LEFT_CLICK 1
 # define ZOOM_OUT 4
 # define ZOOM_IN 5
@@ -129,6 +129,7 @@ int			render_fractal(t_fractal *fractal);
 
 //	********	events
 void	moving(int key, t_fractal *f);
+void	zooming(int key, int x, int y, t_fractal *f);
 
 //	********	clean stuff
 void	cleanshit(t_fractal *fractal);
