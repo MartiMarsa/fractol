@@ -49,6 +49,18 @@
 # define ELECTRIC_BLUE   0x0066FF
 # define LAVA_RED        0xFF330
 
+# define MOVE 0.1
+# define ZOOM 1.3
+# define LEFT_CLICK 1
+# define ZOOM_OUT 4
+# define ZOOM_IN 5
+# define ESC 53
+# define LEFT 123
+# define RIGHT 124
+# define DOWN 125
+# define UP 126
+# define SHIFT 257
+
 /*
  * estructura para numero complejo: parte real y parte imaginaria z = x + yi 
  * aborda los limites
@@ -74,6 +86,8 @@ typedef struct s_img
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		height;
+	int		width;
 }				t_img;
 
 /*
@@ -104,20 +118,24 @@ double		scale(double unscaledNum, double minAllowed,
 
 //	********	main 
 int			main(int argc, char **argv);
+void	set_buffer(t_img *buffer, t_fractal fractal);
 
 //	********	init
 void		init_data(t_fractal *fractal);
+void		events_init(t_fractal *fractal);
 
 //	********	render
-void	render_fractal(t_fractal *fractal);
+int			render_fractal(t_fractal *fractal);
 
 //	********	events
+void	moving(int key, t_fractal *f);
 
 //	********	clean stuff
 void	cleanshit(t_fractal *fractal);
+void	alloc_error(void);
 
 //	********	mandelbrot
-void	draw_mandelbrot(t_fractal *fractal);
+int		draw_mandelbrot(t_fractal *fractal);
 void	mandelbrot(t_fractal *fractal);
 
 //	********	yulia

@@ -21,65 +21,72 @@
 // renderizaremos los valores que no escapan al infinito. 
 
 // funcion que recibe un color y una posicion
-static void	my_pixel_put(t_img *data, int x, int y, int color)
+static void	my_pixel_put(t_fractal *f, int x, int y, int color)
 {
 	char	*dst;
-
-	if (x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
-		return ;
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	
+	dst = f->img.addr + (y * f->img.line_length + x * (f->img.bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
 
-static int	my_pixel_get(t_img *img, int x, int y)
+/*static unsigned int	my_pixel_get(t_img *img, int x, int y)
 {
 	char	*pixel;
 
 	pixel = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	return (*(int *)pixel);
+	return (*(unsigned int *)pixel);
 }
 
-static void	imgcopy(t_img dst, t_img src, int x, int y)
+void	imgcopy(t_img dst, t_img src, int x, int y)
 {
 	int i;
 	int j;
 
 	i = 0;
-	while (i < HEIGHT)
+	while (i < WIDTH)
 	{
 		j = 0;
-		while (j < WIDTH)
+		while (j < HEIGHT)
 		{
-			my_pixel_put(&dst, x + i, y + j, my_pixel_get(&src, i, j));
+			my_pixel_put(&dst, x + j, y + i, my_pixel_get(&src, j, i));
 			j++;
 		}
 		i++;
 	}
-}
+}*/
 
-void	render_fractal(t_fractal *fractal)
+int	render_fractal(t_fractal *fractal)
 {
 	int			x;
 	int			y;
-	t_img		ptr_img;
 
-	x = -1;
-	while (++x < WIDTH)
+	int i = 0;
+	// fractal->img.img = mlx_new_image(fractal->mlx_con, WIDTH, HEIGHT);
+	// fractal->img.addr = mlx_get_data_addr(&fractal->img, &fractal->img.bits_per_pixel, &fractal->img.line_length, &fractal->img.endian);
+	// fractal->img.height = HEIGHT;
+	// fractal->img.width = WIDTH;
+	y = -1;
+	while (++y < HEIGHT)
 	{	
-		fractal->x = scale(x, fractal->lim.xmin, fractal->lim.xmax, WIDTH);
-		y = -1;
-		while (++y < HEIGHT)
+		fractal->y = scale(y, fractal->lim.xmin, fractal->lim.xmax, WIDTH);
+		x = -1;
+		while (++x < WIDTH)
 		{
-			fractal->y = scale(x, fractal->lim.ymin, fractal->lim.ymax, HEIGHT);
+			fractal->x = scale(x, fractal->lim.ymin, fractal->lim.ymax, HEIGHT);
 			if (fractal->type == 1)
-				draw_mandelbrot(fractal);
-			//else if (fractal->type == 2)
-			//	draw_julia(fractal);
+				i = draw_mandelbrot(fractal);
+			/*else if (fractal->type == 2)
+				draw_julia(fractal);
 			else
-				draw_shit(fractal);
-			my_pixel_put(&ptr_img, x, y, LIME_SHOCK); // podemos hacer una funcion para el color PROBLEMAS GRAVES
+				draw_shit(fractal);*/
+				if (i < fractal->iterations)
+					my_pixel_put(fractal, x, y, WHITE);
+
+				else
+					my_pixel_put(fractal, x, y, GREEN);
 		}
 	}
-	imgcopy(fractal->img, ptr_img, x, y);
-	mlx_put_image_to_window(fractal->mlx_con, fractal->mlx_win, &fractal->img, 0, 0);
+	// imgcopy(*fractal->img, ptr_img, x, y);
+	mlx_put_image_to_window(fractal->mlx_con, fractal->mlx_win, fractal->img.img, 0, 0);
+	return 0;
 }

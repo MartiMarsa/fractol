@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include <string.h>
 
 
 
@@ -19,7 +20,8 @@ static void	set_fractal(t_fractal *fractal, char **argv)
 	(void)argv;
 	//if (!ft_strncmp(fractal->name, "julia", 5))
 	//	julia(fractal, argv);
-	if (!ft_strncmp(fractal->name, "mandelbrot", 10))
+	
+	if (!ft_strncmp(fractal->name, "mandelbrot", 11))
 		mandelbrot(fractal);
 	if (!ft_strncmp(fractal->name, "burning_ship", 12))
 		burning_shit(fractal);
@@ -42,7 +44,7 @@ int	main(int argc, char **argv)
 		fractal.name = argv[1];
 		set_fractal(&fractal, argv);
 		init_data(&fractal);
-		render_fractal(&fractal);
+		events_init(&fractal);
 		mlx_loop(fractal.mlx_con);
 	//}
 	return (0);

@@ -25,7 +25,7 @@ void	cleanshit(t_fractal *fractal)
 		free(fractal->mlx_con);
 }
 
-static void	alloc_error(void)
+void	alloc_error(void)
 {
 	perror("Memory allocation fail");
 	exit(EXIT_FAILURE);
@@ -45,13 +45,15 @@ void	init_data(t_fractal *fractal)
 		alloc_error();
 	}
 	fractal->img.img = mlx_new_image(fractal->mlx_con, WIDTH, HEIGHT);
-	if (NULL == fractal->img.img)
+	if (NULL == fractal->img.img )
 	{
 		cleanshit(fractal);
 		alloc_error();
 	}
-	fractal->img.addr = mlx_get_data_addr(fractal->img.img, &fractal->img.bits_per_pixel,
+	fractal->img.addr = mlx_get_data_addr(fractal->img.img , &fractal->img.bits_per_pixel,
 											&fractal->img.line_length, &fractal->img.endian);
-	mlx_clear_window(fractal->mlx_con, fractal->mlx_win);
+	fractal->img.height = HEIGHT;
+	fractal->img.width = WIDTH;
+	render_fractal(fractal);
 	//events_init(fractal);
 }

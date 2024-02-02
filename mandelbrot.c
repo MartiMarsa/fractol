@@ -11,9 +11,11 @@
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include <string.h>
 
 void	mandelbrot(t_fractal *fractal)
 {
+	memset(&fractal->lim, 0, sizeof fractal->lim);
 	fractal->type = 1;
 	fractal->iterations = 100;
 	fractal->ciao = 4.0;
@@ -25,7 +27,7 @@ void	mandelbrot(t_fractal *fractal)
 	fractal->lim.cim = 0;
 }
 
-void	draw_mandelbrot(t_fractal *fractal)
+int	draw_mandelbrot(t_fractal *fractal)
 {
 	double	x;
 	double	y;
@@ -41,4 +43,5 @@ void	draw_mandelbrot(t_fractal *fractal)
 		y = 2 * x * y + fractal->y;
 		x = temp;
 	}
+	return (i);
 }

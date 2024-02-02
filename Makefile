@@ -12,10 +12,11 @@
 
 NAME = fractol
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 MLX_FLAGS = -framework OpenGL -framework AppKit
 
-SRC = main.c utils.c init.c render.c mandelbrot.c julia.c burning_ship.c
+SRC = main.c utils.c init.c render.c mandelbrot.c julia.c burning_ship.c \
+			events.c hooks.c
 OBJ = $(SRC:.c=.o) 
 
 SRC_MLX = ./mlx/libmlx.a

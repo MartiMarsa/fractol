@@ -5,23 +5,35 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarsa-s <mmarsa-s@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/01 13:38:54 by mmarsa-s          #+#    #+#             */
-/*   Updated: 2024/02/01 13:38:56 by mmarsa-s         ###   ########.fr       */
+/*   Created: 2024/02/02 16:44:08 by mmarsa-s          #+#    #+#             */
+/*   Updated: 2024/02/02 16:44:10 by mmarsa-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int on_key_pressed(int keysym, t_fractal *fract)
+/*void	zooming(int key, int x, int y, t_fractal *f)
 {
-	if (keysym == 53)
-		mlx_destroy_window(fract->mlx_con, fract->mlx_win);
+
+}*/
+
+void	moving(int key, t_fractal *f)
+{
+	double	x;
+	double	y;
+
+	x = f->lim.xmax - f->lim.xmin;
+	y = f->lim.ymax - f->lim.ymin;
+
+	if (key == UP)
+	{
+		f->lim.xmin += x * MOVE;
+		f->lim.xmax += x * MOVE;
+
+	}
 }
 
-void	events_init(t_fractal *fractal)
-{
-	mlx_hook(fractal->mlx_win, 2, 0, &on_key_pressed, fractal);
-	mlx_hook(fractal->mlx_win, 17, 0, &on_key_pressed, fractal);
-	mlx_loop_hook(fractal->mlx_con, mlx_put_image_to_window(fractal->mlx_con, 
-					fractal->mlx_win, &fractal->img, 0, 0), fractal);
-}
+
+
+
+
