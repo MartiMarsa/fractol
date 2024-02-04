@@ -11,15 +11,31 @@
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include <stdio.h>
 
-int	mouse_hook(int key, int x, int y, t_fractal *fractal)
+/*int	mouse_hook(int key, int x, int y, t_fractal *fractal)
 {
     if (key == ZOOM_IN || key == ZOOM_OUT)
         zooming(key, (double)x / WIDTH, (double)y / HEIGHT, fractal);
 
     render_fractal(fractal);
     return (0);
+}*/
+int mouse_hook(int key, int x, int y, t_fractal *fractal)
+{
+    if (key == ZOOM_IN || key == ZOOM_OUT)
+    {
+        double normalized_x = (double)x / WIDTH;
+        double normalized_y = (double)y / HEIGHT;
+        printf("Mouse coordinates: (%f, %f)\n", normalized_x, normalized_y);
+
+        zooming(key, normalized_x, normalized_y, fractal);
+    }
+
+    render_fractal(fractal);
+    return (0);
 }
+
 
 int	key_hook(int key, t_fractal *fractal)
 {

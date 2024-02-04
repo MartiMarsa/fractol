@@ -12,7 +12,7 @@
 
 #include "fractol.h"
 
-void	zooming(int key, int x, int y, t_fractal *f)
+void	zooming(int key, double x, double y, t_fractal *f)
 {
 	double	i;
 	double	j;
@@ -22,19 +22,20 @@ void	zooming(int key, int x, int y, t_fractal *f)
 
 	if (key == ZOOM_IN)
 	{
-		f->lim.xmax -= (i * ZOOM - i) * x;
-		f->lim.xmin += (i * ZOOM - i) * (1 - x);
+		f->lim.xmax += (i * ZOOM - i) * x;
+		f->lim.xmin -= (i * ZOOM - i) * (1 - x);
 		f->lim.ymin -= (j * ZOOM - j) * y;
 		f->lim.ymax += (j * ZOOM - j) * (1 - y);
 	}
 	if (key == ZOOM_OUT)
 	{
-		f->lim.xmax -= (i / ZOOM - i) * x;
-		f->lim.xmin += (i / ZOOM - i) * (1 - x);
+		f->lim.xmin -= (i / ZOOM - i) * x;
+		f->lim.xmax += (i / ZOOM - i) * (1 - x);
 		f->lim.ymin -= (j / ZOOM - j) * y;
 		f->lim.ymax += (j / ZOOM - j) * (1 - y);
 	}
 }
+
 
 void	moving(int key, t_fractal *f)
 {

@@ -15,16 +15,19 @@
 
 void	mandelbrot(t_fractal *fractal)
 {
-	memset(&fractal->lim, 0, sizeof fractal->lim);
+	double max_limit;
+	
+	max_limit = 2.0;
+	//memset(&fractal->lim, 0, sizeof fractal->lim);
 	fractal->type = 1;
 	fractal->iterations = 100;
 	fractal->ciao = 4.0;
-	fractal->lim.ymin = 2;
-	fractal->lim.ymax = -2;
-	fractal->lim.xmin = 2;
-	fractal->lim.xmax = -2;
 	fractal->lim.cr = 0;
 	fractal->lim.cim = 0;
+	fractal->lim.xmin = fmin(fractal->lim.xmin, -max_limit);
+	fractal->lim.xmax = fmax(fractal->lim.xmax, max_limit);
+	fractal->lim.ymin = fmin(fractal->lim.ymin, -max_limit);
+	fractal->lim.ymax = fmax(fractal->lim.ymax, max_limit);
 }
 
 int	draw_mandelbrot(t_fractal *fractal)

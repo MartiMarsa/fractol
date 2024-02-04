@@ -21,3 +21,13 @@ double scale(double unscaledNum, double minAllowed, double maxAllowed, double ma
 	return ((maxAllowed - minAllowed) * (unscaledNum) / max + minAllowed);
 }
 
+double fmin(double a, double b) 
+{
+    return (a < b) ? a : b;
+}
+
+double fmax(double a, double b)
+{
+    return (a > b) ? a : b;
+}
+
