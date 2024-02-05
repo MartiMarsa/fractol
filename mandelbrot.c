@@ -18,7 +18,7 @@ void	mandelbrot(t_fractal *fractal)
 	double max_limit;
 	
 	max_limit = 2.0;
-	//memset(&fractal->lim, 0, sizeof fractal->lim);
+	fractal->name = "Mandelbrot";
 	fractal->type = 1;
 	fractal->iterations = 100;
 	fractal->ciao = 4.0;

@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <math.h>
 # include "mlx/mlx.h"
+# include "libft/libft.h"
 
 # define ERROR_MESSAGE	"Error: Invalid command line arguments."\
 	"Please use one of the following formats:\n\n1."\
@@ -111,8 +112,8 @@ typedef struct s_fractal
 }				t_fractal;
 
 //	********	utils
-int			ft_strncmp(char *s1, char *s2, int n);
-void		ft_putstr_fd(char *s, int fd);
+//int			ft_strncmp(char *s1, char *s2, int n);
+//void		ft_putstr_fd(char *s, int fd);
 double		scale(double unscaledNum, double minAllowed,
 				double maxAllowed, double max);
 
@@ -136,8 +137,7 @@ void	moving(int key, t_fractal *f);
 void 	zooming(int key, double x, double y, t_fractal *f);
 
 //	********	clean stuff
-void	cleanshit(t_fractal *fractal);
-void	alloc_error(void);
+int	cleanshit(t_fractal *fractal);
 
 //	********	mandelbrot
 int		draw_mandelbrot(t_fractal *fractal);
@@ -145,10 +145,10 @@ void	mandelbrot(t_fractal *fractal);
 
 //	********	yulia
 void	julia(t_fractal *fractal, char **argv);
-void	draw_julia(t_fractal *fractal);
+int		draw_julia(t_fractal *fractal);
 
 //	********	burning shit
 void	burning_shit(t_fractal *fractal);
-void	draw_shit(t_fractal *ractal);
+int		draw_shit(t_fractal *fractal);
 
 #endif

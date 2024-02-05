@@ -18,42 +18,35 @@
  * 
 */
 
-void	cleanshit(t_fractal *fractal)
+int	cleanshit(t_fractal *fractal)
 {
-		mlx_destroy_image(fractal->mlx_con, fractal->mlx_win);
+	if (fractal && fractal->mlx_win)
 		mlx_destroy_window(fractal->mlx_con, fractal->mlx_win);
-		free(fractal->mlx_con);
-}
-
-void	alloc_error(void)
-{
-	perror("Memory allocation fail");
-	exit(EXIT_FAILURE);
+	exit (1);
 }
 
 
 void	init_data(t_fractal *fractal)
 {
+	t_img	img;
+
+	fractal->mlx_con = NULL;
+	fractal->mlx_win = NULL;
 	fractal->mlx_con = mlx_init();
 	if (NULL == fractal->mlx_con)
-		alloc_error();
+		exit(1);
 	fractal->mlx_win = mlx_new_window(fractal->mlx_con, WIDTH, HEIGHT, fractal->name);
 	if (NULL == fractal->mlx_win)
 	{
-		mlx_destroy_window(fractal->mlx_con, fractal->mlx_win);
 		free(fractal->mlx_con);
-		alloc_error();
+		exit (1);
 	}
+	ft_memset(&img, 0, sizeof(t_img));
+	fractal->img = img;
 	fractal->img.img = mlx_new_image(fractal->mlx_con, WIDTH, HEIGHT);
 	if (NULL == fractal->img.img )
-	{
-		cleanshit(fractal);
-		alloc_error();
-	}
+		exit(cleanshit(fractal));
 	fractal->img.addr = mlx_get_data_addr(fractal->img.img , &fractal->img.bits_per_pixel,
 											&fractal->img.line_length, &fractal->img.endian);
-	fractal->img.height = HEIGHT;
-	fractal->img.width = WIDTH;
 	render_fractal(fractal);
-	//events_init(fractal);
 }

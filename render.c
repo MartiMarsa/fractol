@@ -61,10 +61,6 @@ int	render_fractal(t_fractal *fractal)
 	int			y;
 
 	int i = 0;
-	// fractal->img.img = mlx_new_image(fractal->mlx_con, WIDTH, HEIGHT);
-	// fractal->img.addr = mlx_get_data_addr(&fractal->img, &fractal->img.bits_per_pixel, &fractal->img.line_length, &fractal->img.endian);
-	// fractal->img.height = HEIGHT;
-	// fractal->img.width = WIDTH;
 	y = -1;
 	while (++y < HEIGHT)
 	{	
@@ -75,18 +71,16 @@ int	render_fractal(t_fractal *fractal)
 			fractal->x = scale(x, fractal->lim.ymin, fractal->lim.ymax, HEIGHT);
 			if (fractal->type == 1)
 				i = draw_mandelbrot(fractal);
-			/*else if (fractal->type == 2)
-				draw_julia(fractal);
+			else if (fractal->type == 2)
+				i = draw_julia(fractal);
 			else
-				draw_shit(fractal);*/
-				if (i < fractal->iterations)
-					my_pixel_put(fractal, x, y, WHITE);
-
-				else
-					my_pixel_put(fractal, x, y, GREEN);
+				i = draw_shit(fractal);
+			if (i < fractal->iterations)
+				my_pixel_put(fractal, x, y, PSYCHEDELIC_PURPLE);
+			else
+				my_pixel_put(fractal, x, y, WHITE);
 		}
 	}
-	// imgcopy(*fractal->img, ptr_img, x, y);
 	mlx_put_image_to_window(fractal->mlx_con, fractal->mlx_win, fractal->img.img, 0, 0);
 	return 0;
 }

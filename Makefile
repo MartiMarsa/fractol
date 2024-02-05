@@ -22,20 +22,27 @@ OBJ = $(SRC:.c=.o)
 SRC_MLX = ./mlx/libmlx.a
 MAKE_MLX = make -C mlx --no-print-directory
 
+SRC_LIBFT = ./libft/libft.a
+MAKE_LIBFT = make -C libft --no-print-directory
+
 %.o: %.c Makefile
 	$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
-all: make_mlx $(NAME)
+all: make_mlx make_libft $(NAME)
 
 make_mlx:
 	$(MAKE_MLX)
 
-$(NAME): $(OBJ) $(SRC_MLX)
+make_libft:
+	$(MAKE_LIBFT)
+
+$(NAME): $(OBJ) $(SRC_MLX) $(SRC_LIBFT)
 	$(CC) $(CFLAGS) -Lmlx -lmlx $(MLX_FLAGS) $(^) -o $(NAME)
 
 clean:
 	rm -f $(OBJ) 
 	$(MAKE) -C mlx clean --no-print-directory
+	$(MAKE) -C libft fclean --no-print-directory
 
 fclean: clean
 	rm -f $(NAME) 
