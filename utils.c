@@ -25,3 +25,13 @@ void	set_buffer(t_img *buffer, t_fractal fractal)
 	buffer->height = HEIGHT;
 	buffer->width = WIDTH;
 }
+
+int	ft_color(t_fractal	*fractal)
+{
+	if (fractal->iter == 100)
+		return (0x000000);
+	else// if (fractal->type == 1)
+	{
+		return (fractal->color * fractal->iter << 16 | fractal->color << 8 | fractal->iter);
+	}
+}

@@ -13,8 +13,6 @@
 #include "fractol.h"
 #include <string.h>
 
-
-
 static void	parsero(int argc, char **argv, t_fractal *fractal)
 {
 	t_lim	lim;
@@ -23,9 +21,11 @@ static void	parsero(int argc, char **argv, t_fractal *fractal)
 	fractal->lim = lim;
 	if (argc == 4 && !ft_strncmp(argv[1], "julia", 5) && !argv[1][5])
 		julia(fractal, argv);
-	else if (argc == 2 && !ft_strncmp(argv[1], "mandelbrot", 10) && !argv[1][10])
+	else if (argc == 2 && !ft_strncmp(argv[1], "mandelbrot", 10)
+		&& !argv[1][10])
 		mandelbrot(fractal);
-	else if (argc == 2 && !ft_strncmp(argv[1], "burning_ship", 12) && !argv[1][12])
+	else if (argc == 2 && !ft_strncmp(argv[1], "burning_ship", 12)
+		&& !argv[1][12])
 		burning_shit(fractal);
 	else
 	{
@@ -42,9 +42,5 @@ int	main(int argc, char **argv)
 	init_data(&fractal);
 	events_init(&fractal);
 	mlx_loop(fractal.mlx_con);
-
 	return (0);
 }
-
-//HAY PROBLEMAS EN EL PARSING, EN ATODBL DE JULIA, 
-//EN LA RENDERIZACION CON TRIPLE BUFFER Y NO SE MUESTRA UNA MIERDA EN PANTALLA

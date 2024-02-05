@@ -149,6 +149,6 @@ int		draw_julia(t_fractal *fractal);
 
 //	********	burning shit
 void	burning_shit(t_fractal *fractal);
-int		draw_shit(t_fractal *fractal);
+int		draw_shit(t_fractal *ractal);
 
 #endif

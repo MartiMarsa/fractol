@@ -20,7 +20,7 @@ void	burning_shit(t_fractal *fractal)
 	max_limit = 2.0;
 	fractal->name = "Burning_ship";
 	fractal->type = 3;
-	fractal->iterations = 100;
+	fractal->maxiter = 100;
 	fractal->ciao = 1.0;
 	fractal->lim.xmin = fmin(fractal->lim.xmin, -max_limit);
 	fractal->lim.xmax = fmax(fractal->lim.xmax, max_limit);
@@ -35,12 +35,12 @@ int	draw_shit(t_fractal *fractal)
 	double	x;
 	double	y;
 	double	temp;
-    int     i;
+	int		i;
 
 	x = 0;
 	y = 0;
-    i = 0;
-	while ((x * x + y * y) <= fractal->ciao && ++i < fractal->iterations)
+	i = 0;
+	while ((x * x + y * y) <= fractal->ciao && ++i < fractal->maxiter)
 	{
 		temp = x * x - y * y + fractal->x;
 		y = fabs(2 * x * y) + fractal->y;

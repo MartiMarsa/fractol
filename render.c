@@ -19,7 +19,6 @@
 // usamos funciones que usen aritmetica de vectores para operar con numeros complejos.
 //
 // renderizaremos los valores que no escapan al infinito. 
-
 // funcion que recibe un color y una posicion
 static void	my_pixel_put(t_fractal *f, int x, int y, int color)
 {
@@ -61,14 +60,14 @@ int	render_fractal(t_fractal *fractal)
 	int			y;
 
 	int i = 0;
-	y = -1;
-	while (++y < HEIGHT)
+	x = -1;
+	while (++x < WIDTH)
 	{	
-		fractal->y = scale(y, fractal->lim.xmin, fractal->lim.xmax, WIDTH);
-		x = -1;
-		while (++x < WIDTH)
+		fractal->x = scale(x, fractal->lim.xmin, fractal->lim.xmax, WIDTH);
+		y = -1;
+		while (++y < WIDTH)
 		{
-			fractal->x = scale(x, fractal->lim.ymin, fractal->lim.ymax, HEIGHT);
+			fractal->y = scale(y, fractal->lim.ymin, fractal->lim.ymax, HEIGHT);
 			if (fractal->type == 1)
 				i = draw_mandelbrot(fractal);
 			else if (fractal->type == 2)
