@@ -50,7 +50,7 @@ int	key_hook(int key, t_fractal *fractal)
 	return (0);
 }
 
-int	destroy(t_fractal *fractal)
+static int	destroy(t_fractal *fractal)
 {
 	if (fractal && fractal->mlx_win)
 		mlx_destroy_window(fractal->mlx_con, fractal->mlx_win);

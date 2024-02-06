@@ -20,17 +20,9 @@ double	scale(double unscaledNum, double minAllowed,
 	return ((maxAllowed - minAllowed) * (unscaledNum) / max + minAllowed);
 }
 
-void	set_buffer(t_img *buffer, t_fractal fractal)
-{
-	buffer->img = mlx_new_image(fractal.mlx_con, WIDTH, HEIGHT);
-	buffer->addr = mlx_get_data_addr(&buffer, &buffer->bits_per_pixel,
-			&buffer->line_length, &buffer->endian);
-	buffer->height = HEIGHT;
-	buffer->width = WIDTH;
-}
-
 int	ft_color(t_fractal	*fractal)
 {
+	fractal->base = BLACK;
 	if (fractal->iter == 100)
 		return (fractal->base);
 	else if (fractal->type == 1)
@@ -42,4 +34,13 @@ int	ft_color(t_fractal	*fractal)
 	else
 		return (234 * fractal->iter << 16 | fractal->color
 			* fractal->iter << 8 | fractal->color);
+}
+
+void	my_pixel_put(t_fractal *f, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = f->img.addr + (y * f->img.line_length + x
+			* (f->img.bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }

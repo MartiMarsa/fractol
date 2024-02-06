@@ -113,13 +113,12 @@ typedef struct s_fractal
 double		scale(double unscaledNum, double minAllowed,
 				double maxAllowed, double max);
 int			ft_color(t_fractal	*fractal);
+void		my_pixel_put(t_fractal *f, int x, int y, int color);
 
 //	********	main 
 int			main(int argc, char **argv);
-void		set_buffer(t_img *buffer, t_fractal fractal);
 
 //	********	init
-void		init_data(t_fractal *fractal);
 void		events_init(t_fractal *fractal);
 
 //	********	render
@@ -134,7 +133,7 @@ void		draw_mandelbrot(t_fractal *fractal);
 void		mandelbrot(t_fractal *fractal);
 
 //	********	yulia
-void		julia(t_fractal *fractal, char **argv);
+void		julia(t_fractal *fractal, char **argv, int argc);
 void		draw_julia(t_fractal *fractal);
 
 //	********	burning shit

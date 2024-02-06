@@ -12,33 +12,64 @@
 
 #include "fractol.h"
 
-/*static double	atodbl(char *str)
+static int	ft_atodbl(char *str, double *c)
 {
+	double	dec;
 	double	result;
-	int	sign;
 
-	result = 0.0;
-	sign = 1;
-	if (!str)
-		return (0);
-	if (*str == '-')
-		sign = -1;
+	result = 0;
+	dec = 0.1;
 	if (*str == '-' || *str == '+')
 		str++;
 	while (*str >= '0' && *str <= '9' && *str)
+		result = result * 10 + (*str++ - '0');
+	if (*str == '.')
 	{
-			result = result * 10 + (*str++ - '0');
+		str++;
+		while (*str >= '0' && *str <= '9' && *str)
+		{
+			result = result + (*str++ - '0') * dec;
+			dec *= 0.1;
+		}
 	}
-	return (result * sign);
-}*/
+	if (result > 2 || *str)
+		return (1);
+	if (str[0] == '-')
+		result *= -1;
+	*c = result;
+	return (0);
+}
 
-void	julia(t_fractal *fractal, char **argv)
+static void	set_parameters(t_fractal *fractal, char **argv, int argc)
+{
+	int	flag;
+
+	flag = 0;
+	if (argc == 4)
+	{
+		flag += ft_atodbl(argv[2], &fractal->lim.cr);
+		flag += ft_atodbl(argv[3], &fractal->lim.cim);
+	}
+	if (argc != 4 || flag > 0)
+	{
+		ft_printf("\nPlease provide valid parameters for the Julia set");
+		ft_printf("within the range of -2.0 to 2.0.\nExample: ");
+		ft_printf("./fractol julia 0.3 -0.56\n\n");
+		exit (1);
+	}
+}
+
+void	julia(t_fractal *fractal, char **argv, int argc)
 {
 	double	max_limit;
 
 	max_limit = 2.0;
+	fractal->lim.cr = 0.4;
+	fractal->lim.cim = 0.2;
 	fractal->name = "Julia";
 	fractal->type = 2;
+	if (argc > 2)
+		set_parameters(fractal, argv, argc);
 	fractal->maxiter = 100;
 	fractal->color = 1;
 	fractal->ciao = 15.0;
@@ -46,8 +77,6 @@ void	julia(t_fractal *fractal, char **argv)
 	fractal->lim.xmax = fmax(fractal->lim.xmax, max_limit);
 	fractal->lim.ymin = fmin(fractal->lim.ymin, -max_limit);
 	fractal->lim.ymax = fmax(fractal->lim.ymax, max_limit);
-	fractal->lim.cr = atof(argv[2]);
-	fractal->lim.cim = atof(argv[3]);
 }
 
 void	draw_julia(t_fractal *fractal)
