@@ -34,13 +34,14 @@
 
 void	julia(t_fractal *fractal, char **argv)
 {
-	double max_limit;
-	
+	double	max_limit;
+
 	max_limit = 2.0;
 	fractal->name = "Julia";
 	fractal->type = 2;
-	fractal->iterations = 100;
-	fractal->ciao = 4.0;
+	fractal->maxiter = 100;
+	fractal->color = 1;
+	fractal->ciao = 15.0;
 	fractal->lim.xmin = fmin(fractal->lim.xmin, -max_limit);
 	fractal->lim.xmax = fmax(fractal->lim.xmax, max_limit);
 	fractal->lim.ymin = fmin(fractal->lim.ymin, -max_limit);
@@ -49,21 +50,20 @@ void	julia(t_fractal *fractal, char **argv)
 	fractal->lim.cim = atof(argv[3]);
 }
 
-int	draw_julia(t_fractal *fractal)
+void	draw_julia(t_fractal *fractal)
 {
 	double	x;
 	double	y;
 	double	temp;
-	int		i;
 
 	x = fractal->x;
 	y = fractal->y;
-	i = 0;
-	while ((x * x + y * y) <= fractal->ciao && ++i < fractal->iterations)
+	fractal->iter = -1;
+	while ((x * x + y * y) <= fractal->ciao
+		&& ++fractal->iter < fractal->maxiter)
 	{
 		temp = x * x - y * y + fractal->lim.cr;
 		y = 2 * x * y + fractal->lim.cim;
 		x = temp;
 	}
-	return (i);
 }

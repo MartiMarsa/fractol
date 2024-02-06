@@ -29,7 +29,13 @@ static void	parsero(int argc, char **argv, t_fractal *fractal)
 		burning_shit(fractal);
 	else
 	{
-		ft_putstr_fd(ERROR_MESSAGE, STDERR_FILENO);
+		ft_printf("\nError: Invalid command line arguments. Please use one ");
+		ft_printf("of the following formats:\n\n1.For Mandelbrot set: ./");
+		ft_printf("fractal mandelbrot\n\n2.For Julia set: ./fractal julia");
+		ft_printf(" n1 n2\nwhere n1 and n2 are numeric values representing");
+		ft_printf(" the complex constant.\n\n3. For Burning Ship set: ./");
+		ft_printf("fractal burning_ship\n\nPlease provide the correct ");
+		ft_printf("command line arguments and try again.\n\n");
 		exit(1);
 	}
 }

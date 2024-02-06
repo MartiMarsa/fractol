@@ -20,14 +20,6 @@
 # include "mlx/mlx.h"
 # include "libft/libft.h"
 
-# define ERROR_MESSAGE	"Error: Invalid command line arguments."\
-	"Please use one of the following formats:\n\n1."\
-	"For Mandelbrot set: ./fractal mandelbrot\n\n2."\
-	"For Julia set: ./fractal julia n1 n2\n\n"\
-	"where n1 and n2 are numeric values representing the complex constant.\n"\
-	"3. For Burning Ship set: ./fractal burning_ship\n\n"\
-	"Please provide the correct command line arguments and try again."
-
 # define WIDTH	1000
 # define HEIGHT	1000
 
@@ -61,7 +53,10 @@
 # define DOWN 125
 # define UP 126
 # define SHIFT 257
-
+# define SPACEBAR 49
+# define Z 6
+# define X 7
+# define C 8
 /*
  * estructura para numero complejo: parte real y parte imaginaria z = x + yi 
  * aborda los limites
@@ -105,50 +100,45 @@ typedef struct s_fractal
 	t_lim	lim;
 	char	*name;
 	int		type;
-	int		iterations;
+	int		maxiter;
+	int		iter;
+	int		color;
+	int		base;
 	double	ciao;
 	double	x;
 	double	y;
 }				t_fractal;
 
 //	********	utils
-//int			ft_strncmp(char *s1, char *s2, int n);
-//void		ft_putstr_fd(char *s, int fd);
 double		scale(double unscaledNum, double minAllowed,
 				double maxAllowed, double max);
+int			ft_color(t_fractal	*fractal);
 
 //	********	main 
 int			main(int argc, char **argv);
-void	set_buffer(t_img *buffer, t_fractal fractal);
+void		set_buffer(t_img *buffer, t_fractal fractal);
 
 //	********	init
 void		init_data(t_fractal *fractal);
 void		events_init(t_fractal *fractal);
 
-//	********	math
-double	fmin(double a, double b);
-double	fmax(double a, double b);
-
 //	********	render
 int			render_fractal(t_fractal *fractal);
 
 //	********	events
-void	moving(int key, t_fractal *f);
-void 	zooming(int key, double x, double y, t_fractal *f);
-
-//	********	clean stuff
-int	cleanshit(t_fractal *fractal);
+void		moving(int key, t_fractal *f);
+void		zooming(int key, double x, double y, t_fractal *f);
 
 //	********	mandelbrot
-int		draw_mandelbrot(t_fractal *fractal);
-void	mandelbrot(t_fractal *fractal);
+void		draw_mandelbrot(t_fractal *fractal);
+void		mandelbrot(t_fractal *fractal);
 
 //	********	yulia
-void	julia(t_fractal *fractal, char **argv);
-int		draw_julia(t_fractal *fractal);
+void		julia(t_fractal *fractal, char **argv);
+void		draw_julia(t_fractal *fractal);
 
 //	********	burning shit
-void	burning_shit(t_fractal *fractal);
-int		draw_shit(t_fractal *ractal);
+void		burning_shit(t_fractal *fractal);
+void		draw_shit(t_fractal *ractal);
 
 #endif

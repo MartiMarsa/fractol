@@ -19,7 +19,6 @@ void	zooming(int key, double x, double y, t_fractal *f)
 
 	i = f->lim.xmax - f->lim.xmin;
 	j = f->lim.ymax - f->lim.ymin;
-
 	if (key == ZOOM_IN)
 	{
 		f->lim.xmax += (i * ZOOM - i) * (1 - x);
@@ -36,33 +35,26 @@ void	zooming(int key, double x, double y, t_fractal *f)
 	}
 }
 
-
 void	moving(int key, t_fractal *f)
 {
-	double	x;
-	double	y;
-
-	x = f->lim.xmax - f->lim.xmin;
-	y = f->lim.ymax - f->lim.ymin;
-
-	if (key == UP)
+	if (key == RIGHT)
 	{
-		f->lim.xmin += x * MOVE;
-		f->lim.xmax += x * MOVE;
-	}
-	if (key == DOWN)
-	{
-		f->lim.xmin -= x * MOVE;
-		f->lim.xmax -= x * MOVE;
+		f->lim.xmin += (f->lim.xmax - f->lim.xmin) * MOVE;
+		f->lim.xmax += (f->lim.xmax - f->lim.xmin) * MOVE;
 	}
 	if (key == LEFT)
 	{
-		f->lim.ymin += y * MOVE;
-		f->lim.ymax += y * MOVE;
+		f->lim.xmin -= (f->lim.xmax - f->lim.xmin) * MOVE;
+		f->lim.xmax -= (f->lim.xmax - f->lim.xmin) * MOVE;
 	}
-	if (key == RIGHT)
+	if (key == DOWN)
 	{
-		f->lim.ymin -= y * MOVE;
-		f->lim.ymax -= y * MOVE;
+		f->lim.ymin += (f->lim.ymax - f->lim.ymin) * MOVE;
+		f->lim.ymax += (f->lim.ymax - f->lim.ymin) * MOVE;
+	}
+	if (key == UP)
+	{
+		f->lim.ymin -= (f->lim.ymax - f->lim.ymin) * MOVE;
+		f->lim.ymax -= (f->lim.ymax - f->lim.ymin) * MOVE;
 	}
 }

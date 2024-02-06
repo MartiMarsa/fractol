@@ -12,19 +12,22 @@
 
 #include "fractol.h"
 
-// necesitas una funcion que itera los pixeles y se los va a pasar a otra que los tome.
+// necesitas una funcion que itera los pixeles y se los va a
+// pasar a otra que los tome.
 //
 // hay que escalar las coordenadas del fractal al tamaño de la ventana.
 //
-// usamos funciones que usen aritmetica de vectores para operar con numeros complejos.
+// usamos funciones que usen aritmetica de vectores para operar
+// con numeros complejos.
 //
 // renderizaremos los valores que no escapan al infinito. 
 // funcion que recibe un color y una posicion
 static void	my_pixel_put(t_fractal *f, int x, int y, int color)
 {
 	char	*dst;
-	
-	dst = f->img.addr + (y * f->img.line_length + x * (f->img.bits_per_pixel / 8));
+
+	dst = f->img.addr + (y * f->img.line_length + x
+			* (f->img.bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
 
@@ -59,27 +62,24 @@ int	render_fractal(t_fractal *fractal)
 	int			x;
 	int			y;
 
-	int i = 0;
 	x = -1;
 	while (++x < WIDTH)
-	{	
+	{
 		fractal->x = scale(x, fractal->lim.xmin, fractal->lim.xmax, WIDTH);
 		y = -1;
 		while (++y < WIDTH)
 		{
 			fractal->y = scale(y, fractal->lim.ymin, fractal->lim.ymax, HEIGHT);
 			if (fractal->type == 1)
-				i = draw_mandelbrot(fractal);
+				draw_mandelbrot(fractal);
 			else if (fractal->type == 2)
-				i = draw_julia(fractal);
+				draw_julia(fractal);
 			else
-				i = draw_shit(fractal);
-			if (i < fractal->iterations)
-				my_pixel_put(fractal, x, y, PSYCHEDELIC_PURPLE);
-			else
-				my_pixel_put(fractal, x, y, WHITE);
+				draw_shit(fractal);
+			my_pixel_put(fractal, x, y, ft_color(fractal));
 		}
 	}
-	mlx_put_image_to_window(fractal->mlx_con, fractal->mlx_win, fractal->img.img, 0, 0);
-	return 0;
+	mlx_put_image_to_window(fractal->mlx_con, fractal->mlx_win,
+		fractal->img.img, 0, 0);
+	return (0);
 }

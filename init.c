@@ -18,13 +18,12 @@
  * 
 */
 
-int	cleanshit(t_fractal *fractal)
+static int	cleanshit(t_fractal *fractal)
 {
 	if (fractal && fractal->mlx_win)
 		mlx_destroy_window(fractal->mlx_con, fractal->mlx_win);
 	exit (1);
 }
-
 
 void	init_data(t_fractal *fractal)
 {
@@ -35,7 +34,8 @@ void	init_data(t_fractal *fractal)
 	fractal->mlx_con = mlx_init();
 	if (NULL == fractal->mlx_con)
 		exit(1);
-	fractal->mlx_win = mlx_new_window(fractal->mlx_con, WIDTH, HEIGHT, fractal->name);
+	fractal->mlx_win = mlx_new_window(fractal->mlx_con, WIDTH,
+			HEIGHT, fractal->name);
 	if (NULL == fractal->mlx_win)
 	{
 		free(fractal->mlx_con);
@@ -44,9 +44,10 @@ void	init_data(t_fractal *fractal)
 	ft_memset(&img, 0, sizeof(t_img));
 	fractal->img = img;
 	fractal->img.img = mlx_new_image(fractal->mlx_con, WIDTH, HEIGHT);
-	if (NULL == fractal->img.img )
+	if (NULL == fractal->img.img)
 		exit(cleanshit(fractal));
-	fractal->img.addr = mlx_get_data_addr(fractal->img.img , &fractal->img.bits_per_pixel,
-											&fractal->img.line_length, &fractal->img.endian);
+	fractal->img.addr = mlx_get_data_addr(fractal->img.img,
+			&fractal->img.bits_per_pixel,
+			&fractal->img.line_length, &fractal->img.endian);
 	render_fractal(fractal);
 }
